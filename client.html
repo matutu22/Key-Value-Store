@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Key Value Database</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap-table/src/bootstrap-table.css">
+    <link rel="stylesheet" href="assets/examples.css">
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap-table/src/bootstrap-table.js"></script>
+    <script src="ga.js"></script>
+
+
+</head>
+<body>
+<div class="container">
+    <h1 id="client_id"> Client id here</h1>
+    <h3>You are currently in the queue</h3>
+    <hr />
+
+    <form>
+        <div class="form-group">
+            <label for="key">Key</label>
+            <input type="text" class="form-control" id="key"  placeholder="Enter key">
+        </div>
+        <div class="form-group">
+            <label for="value">Value</label>
+            <input type="text" class="form-control" id="value" placeholder="Enter value">
+        </div>
+        <div class="form-group">
+            <label for="operation">Select operation</label>
+            <select class="form-control" id="operation">
+                <option>Add</option>
+                <option>Delete</option>
+
+            </select>
+        </div>
+    </form>
+
+    <div class="row">
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-primary btn-block" id="enter">Enter</button>
+        </div>
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-success btn-block" id="submit">Submit</button>
+        </div>
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-warning btn-block" id="exit">Exit</button>
+        </div>
+        <div class="col-sm-3">
+            <button type="button" class="btn btn-danger btn-block" id=shutdown">Shut Down</button>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="columns columns-right btn-group pull-right">
+        <button class="btn btn-default" type="button" name="paginationSwitch" aria-label="pagination Switch" title="Hide/Show pagination">
+            <i class="glyphicon glyphicon-collapse-down icon-chevron-down"></i>
+        </button>
+        <button id="refresh" class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh" onclick="loadDoc()">
+            <i class="glyphicon glyphicon-refresh icon-refresh"></i>
+        </button>
+
+    </div>
+
+    <p></p>
+
+    <h2>Historical operations</h2>
+
+    <table id="table">
+        <thead>
+        <tr>
+            <th data-field="time">Time</th>
+            <th data-field="operation">Operation</th>
+            <th data-field="key">key</th>
+
+            <th data-field="value">value</th>
+            <th data-field="status">status</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $("#enter").click(function(){
+            // do something
+        });
+    });
+
+    $(document).ready(function(){
+        $("submit").click(function(){
+            // do something
+        });
+    });
+
+    $(document).ready(function(){
+        $("#exit").click(function(){
+            // do something
+        });
+    });
+
+    $(document).ready(function(){
+        $("#shutdown").click(function(){
+            // do something
+        });
+    });
+    $(document).ready(function() {
+
+        function RefreshTable() {
+            $( "#table" ).load( "index.html #table" );
+        }
+
+        $("#refresh").on("click", RefreshTable);
+    });
+
+
+    var $table = $('#table');
+
+    $(function () {
+        var data = [
+            {
+                "time": "12/05/2017",
+                "client_id": "111",
+                "operation":"add",
+                "key":"apple",
+                "value": "100",
+                "status": "Success"
+            }
+
+        ];
+        $table.bootstrapTable({data: data});
+    });
+
+    function ajaxRequest(params) {
+        // data you need
+        console.log(params.data);
+        // just use setTimeout
+        setTimeout(function () {
+            params.success({
+                total: 100,
+                rows: [{
+                    "id": 0,
+                    "name": "Item 0",
+                    "price": "$0"
+                }]
+            });
+        }, 1000);
+    }
+</script>
+</body>
+</html>

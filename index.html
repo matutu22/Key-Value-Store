@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Key Value Database</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap-table/src/bootstrap-table.css">
+    <link rel="stylesheet" href="assets/examples.css">
+    <script src="assets/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/bootstrap-table/src/bootstrap-table.js"></script>
+    <script src="ga.js"></script>
+
+
+</head>
+<body>
+<div class="container">
+    <h1>Key Value Database</h1>
+    <p></p>
+    <div class="columns columns-right btn-group pull-right">
+        <button class="btn btn-default" type="button" name="paginationSwitch" aria-label="pagination Switch" title="Hide/Show pagination">
+            <i class="glyphicon glyphicon-collapse-down icon-chevron-down"></i>
+        </button>
+        <button id="refresh" class="btn btn-default" type="button" name="refresh" aria-label="refresh" title="Refresh" onclick="loadDoc()">
+            <i class="glyphicon glyphicon-refresh icon-refresh"></i>
+        </button>
+
+    </div>
+    <table id="table">
+        <thead>
+        <tr>
+            <th data-field="name">Item Name</th>
+            <th data-field="amount">Item Amount</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<script>
+//    setTimeout(function(){
+//        $( "#mytable" ).load( "your-current-page.html #mytable" );
+//    }, 2000);
+    $(document).ready(function() {
+
+        function RefreshTable() {
+            $("#table").load("index.html #table");
+        }
+
+        $("#refresh").on("click", RefreshTable);
+
+    });
+
+
+
+    var $table = $('#table');
+
+    $(function () {
+        var data = [
+            {
+                "name": "Item 0",
+                "price": "$0"
+            },
+            {
+                "name": "Item 1",
+                "price": "$1"
+            },
+            {
+                "name": "Item 2",
+                "price": "$2"
+            },
+            {
+                "name": "Item 3",
+                "price": "$3"
+            },
+            {
+                "name": "Item 4",
+                "price": "$4"
+            },
+            {
+                "name": "Item 5",
+                "price": "$5"
+            }
+        ];
+        $table.bootstrapTable({data: data});
+    });
+    
+    $("#refresh").click(function ())
+    {
+
+        success: function (response) {
+
+            $.each(response, function (i, item) {
+                data.append({"name": item.name, "amount": item.value})
+            });
+        }
+    }
+
+
+    function ajaxRequest(params) {
+    // data you need
+    console.log(params.data);
+    // just use setTimeout
+    setTimeout(function () {
+        params.success({
+            total: 100,
+            rows: [{
+                "id": 0,
+                "name": "Item 0",
+                "price": "$0"
+            }]
+        });
+    }, 1000);
+}
+</script>
+</body>
+</html>
